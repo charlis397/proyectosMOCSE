@@ -1,0 +1,210 @@
+CREATE DATABASE CarlosCH;
+USE carlosch;
+
+CREATE TABLE Almacen(
+    -> noAlmacen int(3) not null,
+    -> nombreAlmacen varchar(30) not null,
+    -> direccionAlmacen varchar(40) not null,
+    -> telAlmacen int(11),
+    -> estadoAlmacen varchar(15) not null);
+
+CREATE TABLE ad(
+    -> noAlmacen int(3) not null,
+    -> noDepartamento varchar(4) not null);
+
+CREATE TABLE departamento(
+    -> noDepartamento varchar(4) not null,
+    -> nombreDepto varchar(25) not null);
+
+ INSERT INTO Almacen VALUES(
+    -> 106,
+    -> 'Liverpool Puebla',
+    -> 'Av. Del niño poblano 2510',
+    -> 22297500,
+    -> 'Puebla'
+    -> );
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO Almacen VALUES(
+    -> 120,
+    -> 'Liverpool Perisur',
+    -> 'Periferico Sur 4690 Col Ampl',
+    -> 55544712,
+    -> DF);
+ERROR 1054 (42S22): Unknown column 'DF' in 'field list'
+mysql> INSERT INTO Almacen VALUES(
+    -> 120,
+    -> 'Liverpool Perisur',
+    -> 'Periferico Sur 4690 Col Ampl',
+    -> 55544712,
+    -> 'DF');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> INSERT INTO Almacen VALUES(
+    -> 143,
+    -> 'Liverpool Insurgentes',
+    -> 'Insurgentes sur No 1310',
+    -> 5554-8013,
+    -> 'DF');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO ad VALUES(
+    -> 106,
+    -> 'LB';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> INSERT INTO ad VALUES(
+    -> 106,
+    -> 'LB');
+Query OK, 1 row affected (0.30 sec)
+
+mysql> INSERT INTO ad VALUES(
+    -> 120,
+    -> 'MU');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO ad VALUES(
+    -> 143,
+    -> 'ELC');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO ad VALUES(
+    -> 143,
+    -> 'LB');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO ad VALUES(
+    -> 106,
+    -> 'COM');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO ad VALUES(
+    -> 120,
+    -> 'PER');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> INSERT INTO Departamento VALUES(
+    -> 'COM',
+    -> 'Computacion');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO Departamento VALUES(
+    -> 'PER',
+    -> 'Perfumeria');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO Departamento VALUES(
+    -> 'LB',
+    -> 'Linea Blanca');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Departamento VALUES(
+    -> 'ELC',
+    -> 'Electronica');
+Query OK, 1 row affected (0.35 sec)
+
+mysql> INSERT INTO Departamento VALUES(
+    -> 'MU',
+    -> 'Muebles');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> SELECT * FROM Almacen;
++-----------+-----------------------+------------------------------+------------+---------------+
+| noAlmacen | nombreAlmacen         | direccionAlmacen             | telAlmacen | estadoAlmacen |
++-----------+-----------------------+------------------------------+------------+---------------+
+|       106 | Liverpool Puebla      | Av. Del niño poblano 2510    |   22297500 | Puebla        |
+|       120 | Liverpool Perisur     | Periferico Sur 4690 Col Ampl |   55544712 | DF            |
+|       143 | Liverpool Insurgentes | Insurgentes sur No 1310      |      -2459 | DF            |
++-----------+-----------------------+------------------------------+------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM ad;
++-----------+----------------+
+| noAlmacen | noDepartamento |
++-----------+----------------+
+|       106 | LB             |
+|       120 | MU             |
+|       143 | ELC            |
+|       143 | LB             |
+|       106 | COM            |
+|       120 | PER            |
++-----------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Departamento;
++----------------+--------------+
+| noDepartamento | nombreDepto  |
++----------------+--------------+
+| COM            | Computacion  |
+| PER            | Perfumeria   |
+| LB             | Linea Blanca |
+| ELC            | Electronica  |
+| MU             | Muebles      |
++----------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT nombreAlmacen, telAlmacen FROM Almacen;
+
+
+ SELECT nombreAlmacen, telAlmacen FROM Almacen;
++-----------------------+------------+
+| nombreAlmacen         | telAlmacen |
++-----------------------+------------+
+| Liverpool Puebla      |   22297500 |
+| Liverpool Perisur     |   55544712 |
+| Liverpool Insurgentes |      -2459 |
++-----------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM departamentos
+    -> ORDER BY desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc' at line 2
+mysql> SELECT * FROM departamentos
+    -> ORDER BY nombreDepto desc;
+ERROR 1146 (42S02): Table 'carlosch.departamentos' doesn't exist
+mysql> SELECT * FROM departamento
+    -> ORDER BY nombreDepto desc;
++----------------+--------------+
+| noDepartamento | nombreDepto  |
++----------------+--------------+
+| PER            | Perfumeria   |
+| MU             | Muebles      |
+| LB             | Linea Blanca |
+| ELC            | Electronica  |
+| COM            | Computacion  |
++----------------+--------------+
+
+
+
+
+mysql> INSERT INTO Almacen(Correo) VALUES(
+    -> '',
+    -> 'perisur@liverpool.com',
+    -> 'insur@liverpool.com');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO Almacen(Correo) VALUES(
+    -> 'perisur@liverpool.com',
+    -> 'insur@liverpool.com');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> UPDATE Almacen
+    -> SET correo='perisur@liverpool.com'
+    -> WHERE noAlmacen=120
+    -> ;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE Almacen
+    -> SET correo='insur@liverpool.com'
+    -> WHERE noAlmacen=143;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT correo FROM Alamacen;
+ERROR 1146 (42S02): Table 'carlosch.alamacen' doesn't exist
+mysql> SELECT correo FROM Almacen;;
++-----------------------+
+| correo                |
++-----------------------+
+| NULL                  |
+| perisur@liverpool.com |
+| insur@liverpool.com   |
++-----------------------+
