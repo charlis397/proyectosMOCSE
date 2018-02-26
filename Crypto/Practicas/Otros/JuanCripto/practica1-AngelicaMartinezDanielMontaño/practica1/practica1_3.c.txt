@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int inverso(int x,int m)
+{
+	int i;
+	for(i=1; i<m; i++)
+	{
+		if( (x*i)%m ==1)
+			return i;
+	}
+}
+
+char encriptar(char aux,int m,int a,int b){//funcion que encripta un caracter dados los parametros de cifrado
+	char letra_c;
+		if(aux<65||aux>90){
+			letra_c=aux;
+		}
+		else{
+			letra_c=((a*(aux-65)+b)%m)+65;
+		}
+		return letra_c;
+}
+
+char desencriptar(char aux,int m,int a,int b){//funcion que desencripta un caracter dados los parametros de cifrado
+	char letra_c;
+		if(aux<65||aux>90){//Si se recibe un caracter que no pertenezca al abecedario que no lo modifique
+			letra_c=aux;
+		}
+		else{
+			letra_c = (inverso(a,m)*((aux-65)-b))%m;
+			if(letra_c<0){
+				letra_c=letra_c+26+65;
+			}
+			else{
+				letra_c=letra_c+65;
+			}
+		}
+		return letra_c;
+}
+
+
+
+
+int gcd(int x,int y){
+	int c;
+	while(x!=0){
+		c=x;
+		x=y%x;
+		y=c;
+	}
+	return y;
+}
+
+void generadorLlaves(char* cadena_cifrada, int tam,int m)
+{
+	char cadena_descifrada[tam];
+	int a,b,i;
+	FILE *salida;
+	salida = fopen("salida.txt","w");
+	
+	for(a=0; a<m; a++)
+	{
+		if(gcd(a,m)==1)
+		{
+			for(b=0; b<m; b++)
+			{	
+				for(i=0; i<tam; i++)
+				{
+					if(cadena_cifrada[i] == ' ')
+						cadena_descifrada[i] == ' ';
+					else
+						cadena_descifrada[i]= desencriptar(cadena_cifrada[i],m,a,b);
+					
+					fputc(cadena_descifrada[i], salida);
+				}
+				fputc('\n', salida);
+			}
+		}
+
+	}
+
+	fclose(salida);
+
+}
+
+
+
+int main()
+{
+	FILE *entrada;//archivo de entrada
+	FILE *salida;//archivo de salida
+	char caracter,caracter_c;//auxiliar para caracteres
+	int a,b,m,i;//parametros de cifrado y opcion de cifrar o descifrar
+	m=26;
+
+	entrada = fopen("mensaje.txt","r");
+	
+	if (entrada == NULL){
+		printf("\nError de apertura del archivo. \n\n");
+        }
+        else
+		{
+			while ((caracter=fgetc(entrada))!='\n')
+				i++;
+			
+			printf("%d",i);
+			
+        }
+        fclose(entrada);
+        
+	return 0;
+}

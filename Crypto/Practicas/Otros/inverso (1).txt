@@ -1,0 +1,18 @@
+//Determina si dos números son coprimos
+int sonCoprimos(int a, int b)
+{
+	int c = a, r = b;
+	
+	while( r != 0 )
+	{
+		c = a/b;
+		r = a % b;
+		a = b;
+		b = r;
+	}
+	
+	if( a == 1 )
+		{ return 1; }
+	else
+		{ return 0; }
+}

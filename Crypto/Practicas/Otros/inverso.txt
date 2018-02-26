@@ -1,0 +1,52 @@
+int calcularInversoModular(int a, int m)
+{
+	//coeficiente de a y b respectivamente
+	int c1 = 1;
+	int c2 = -1*(m/a); 
+	
+	//coeficientes penultima corrida
+	int t1 = 0;
+	int t2 = 1;
+	
+	//residuo, asignamos 1 como condicion de entrada 
+	int r = m%a;
+	int x = a , y = r , c;
+	
+	while( r != 0 )
+	{
+		//cociente
+		c = x / y;
+		//residuo
+		r = x % y;
+		//guardamos valores temporales de los coeficientes
+		//multiplicamos los coeficiente por -1*cociente de la division
+		c1 *= -1*c;
+		c2 *= -1*c;
+		
+		//sumamos la corrida anterior
+		c1 += t1;
+		c2 += t2;
+		
+		//actualizamos corrida anterior
+		t1 = -1*( c1-t1 )/c;
+		t2 = -1*( c2-t2 )/c;
+		x = y;
+		y = r;
+	}
+
+	//Si el residuo anterior es 1, son primos relativos y el inverso existe
+	if( x == 1 )
+	{
+		//Si el inverso es negativo, regresamos ese número más el módulo
+		if( t2 >= 0 )
+		{
+			return t2;
+		}
+		else
+		{
+			return t2 + MOD;
+		}
+	}
+	else
+		{ return -1; }
+}

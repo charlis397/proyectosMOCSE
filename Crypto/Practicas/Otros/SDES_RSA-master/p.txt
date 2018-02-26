@@ -1,0 +1,7 @@
+este prueba es para ver
+si nuestro proyecto
+cifra y decifra bien 
+segun nosotros deberia funcionar
+
+
+eso esperamos
